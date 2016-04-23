@@ -135,6 +135,7 @@ function init() {
   //  return 'Leaving this page will result in the loss of your work.';
   //};
 
+  
   var container = document.getElementById('content_area');
   var onresize = function(e) {
     var bBox = getBBox_(container);
@@ -381,13 +382,7 @@ function init() {
         </value>
       </block>
       <block type="inout_analog_read"></block>
-      <block type="serial_print">
-        <value name="CONTENT">
-          <block type="text">
-            <field name="TEXT"></field>
-          </block>
-        </value>
-      </block>
+      <block type="serial_print"></block>
       <block type="inout_tone">
         <value name="NUM">
           <block type="math_number">
@@ -403,12 +398,14 @@ function init() {
         <block type="movereverse"></block>
         <block type="makeright"></block>
         <block type="makeleft"></block>
-        <block type="shootlaser"></block>
     </category>
     <category name="RF Communication">
         <block type="rf_transmit"></block>
         <block type="rf_rec"></block>
     </category>
   </xml>
+  
+  
+  
 </body>
 </html>
