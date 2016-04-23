@@ -70,10 +70,13 @@ void draw()
   text("Reverse", width/2 - 10, (height*2/3));
   text("Left", width/6, height*2/3 + 20);
   
-  text("Voltage: " + forward[xPos-2]*(5.0/1024.0) + "V", width/2 - 10, (height/3)+40);
-  text("Voltage: " + right[xPos-2]*(5.0/1024.0) + "V", width*2/3 + width/6, (height*2/3)+40);
-  text("Voltage: " + reverse[xPos-2]*(5.0/1024.0) + "V", width/2 - 10, (height*2/3)-20);
-  text("Voltage: " + forward[xPos-2]*(5.0/1024.0) + "V", width/6, height*2/3 + 40);
+  if (xPos != 0)
+  {
+    text("Voltage: " + forward[xPos-1]*(5.0/1024.0) + "V", width/2 - 10, (height/3)+40);
+    text("Voltage: " + right[xPos-1]*(5.0/1024.0) + "V", width*2/3 + width/6, (height*2/3)+40);
+    text("Voltage: " + reverse[xPos-1]*(5.0/1024.0) + "V", width/2 - 10, (height*2/3)-20);
+    text("Voltage: " + forward[xPos-1]*(5.0/1024.0) + "V", width/6, height*2/3 + 40);
+  }
 }
 
 void serialEvent(Serial p)
@@ -89,16 +92,16 @@ void serialEvent(Serial p)
       nums[i] = map(nums[i], 0, 300, 0, height/3);
     }
     
-    forward[xPos-1] = nums[0];
+    forward[xPos] = nums[0];
     //text("Voltage: " + forward[xPos]*(5.0/1024.0) + "V", width/2 - 10, (height/3)+40);
 
-    right[xPos-1] = nums[1];
+    right[xPos] = nums[1];
     //text("Voltage: " + right[xPos]*(5.0/1024.0) + "V", width*2/3 + width/6, (height*2/3)+40);
     
-    reverse[xPos-1] = nums[2];
+    reverse[xPos] = nums[2];
     //text("Voltage: " + reverse[xPos]*(5.0/1024.0) + "V", width/2 - 10, (height*2/3)-20);
     
-    left[xPos-1] = nums[3];
+    left[xPos] = nums[3];
     //text("Voltage: " + forward[xPos]*(5.0/1024.0) + "V", width/6, height*2/3 + 40);
   }
   else if(inString!= null && first)
