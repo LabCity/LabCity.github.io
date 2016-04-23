@@ -32,7 +32,7 @@ Blockly.Arduino.rf_transmit = function() {
     Blockly.Arduino.definitions_['var_rfMsg'] = 'char msg[1];\n';
     
     var argument0 = Blockly.Arduino.valueToCode(this, 'msg', Blockly.Arduino.ORDER_NONE) || '0';
-    Blockly.Arduino.setups_["setup_rf_transmit"] = 'vw_setup(2000);\n' + 'vw_set_tx_pin(12);vw_set_rx_pin(11);\n';
+    Blockly.Arduino.setups_["setup_rf_transmit"] = 'vw_set_tx_pin(12);vw_set_rx_pin(11);\n' + 'vw_setup(2000);\n';
     var code = 'msg[0] = ' + argument0 + '\n'+
         'vw_send((uint8_t *)msg, strlen(msg));\n'+
         'vw_wait_tx();\n';
