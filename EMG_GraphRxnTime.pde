@@ -13,11 +13,12 @@ Button trigger = new Button(0, 0, 150, 50, 7, "Blink");
 Button threshUp = new Button(160, 0, 150, 50, 7, "Thresh Up");
 Button threshDown = new Button(320, 0, 150, 50, 7, "Thresh Down");
 Button trigger_beep = new Button(0, 55, 150, 50, 7, "Beep");
+Button screenShot = new Button(160, 55, 150, 50, 7, "Screen Shot");
 
 int rxnTime = 0;
 int rxnNum = 0;
 int rxnCount = 0;
-int threshold = 80;
+int threshold = 1000;
 float graphThresh;
 
 void setup()
@@ -36,7 +37,7 @@ void setup()
 
   myPort = new Serial(this, Serial.list()[0], 9600);
   myPort.bufferUntil('\n');
-  graphThresh = height/2 - map(threshold, 0, 1024, 0, height);
+  graphThresh = height/2 - map(threshold, 960, 1024, 0, height/2);
 }
 
 void draw()
@@ -57,6 +58,7 @@ void draw()
     threshUp.drawButton();
     threshDown.drawButton();
     trigger_beep.drawButton();
+    screenShot.drawButton();
 }
 
 void serialEvent(Serial p)
@@ -66,7 +68,7 @@ void serialEvent(Serial p)
   {
     inString = trim(inString);
     num = float(inString);
-    num -= 900.0;
+    //num -= 900.0;
     
     if(num > threshold && num!=400 && rxnCount == 1)
     {
@@ -74,7 +76,7 @@ void serialEvent(Serial p)
       rxnCount = 0;
     }
     
-    num = map(num, 0, 1024, 0, height);
+    num = map(num, 960, 1024, 0, height/2);
     numbers[xPos] = num;
     
     if(xPos >= (width-1))
@@ -104,13 +106,13 @@ void mouseClicked()
     (mouseY >= threshUp.y) && (mouseY <= threshUp.y + threshUp.h))
     {
       threshold += 2.0; //<>//
-      graphThresh -= map(2.0, 0, 1024, 0, height);
+      graphThresh -= map(2.0, 960, 1024, 0, height/2);
     }
   else if((mouseX >= threshDown.x) && (mouseX <= threshDown.x + threshDown.w) &&
     (mouseY >= threshDown.y) && (mouseY <= threshDown.y + threshDown.h))
     {
       threshold -= 2.0; //<>//
-      graphThresh += map(2.0, 0, 1024, 0, height);
+      graphThresh += map(2.0, 960, 1024, 0, height/2);
     }
   else if((mouseX >= trigger_beep.x) && (mouseX <= trigger_beep.x + trigger_beep.w) &&
     (mouseY >= trigger_beep.y) && (mouseY <= trigger_beep.y + trigger_beep.h))
@@ -121,6 +123,11 @@ void mouseClicked()
     myPort.write(3);
     rxnNum = millis();
   }
+  else if((mouseX >= screenShot.x) && (mouseX <= screenShot.x + screenShot.w) &&
+    (mouseY >= screenShot.y) && (mouseY <= screenShot.y + screenShot.h))
+    {
+      saveFrame();
+    }
     
 }
 
