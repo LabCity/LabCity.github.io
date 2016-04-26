@@ -75,7 +75,7 @@ void draw()
     text("Voltage: " + forward[xPos-1]*(5.0/1024.0) + "V", width/2 - 10, (height/3)+40);
     text("Voltage: " + right[xPos-1]*(5.0/1024.0) + "V", width*2/3 + width/6, (height*2/3)+40);
     text("Voltage: " + reverse[xPos-1]*(5.0/1024.0) + "V", width/2 - 10, (height*2/3)-20);
-    text("Voltage: " + forward[xPos-1]*(5.0/1024.0) + "V", width/6, height*2/3 + 40);
+    text("Voltage: " + left[xPos-1]*(5.0/1024.0) + "V", width/6, height*2/3 + 40);
   }
 }
 
@@ -107,7 +107,7 @@ void serialEvent(Serial p)
   else if(inString!= null && first)
     first = !first;
   
-  if(xPos > int((width/3)-1))
+  if(xPos >= (width/3)-1)
   {
     xPos = 0;
     for(int i=0; i<(int(width/3)); i++)
